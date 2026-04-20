@@ -2,9 +2,9 @@ RWStructuredBuffer<uint> sandPositionsIn : register(u0, space1);
 RWStructuredBuffer<uint> sandPositionsOut : register(u1, space1);
 
 const static int numThreads = 64;
-const static float sizeX = 420.0f;
-const static float sizeY = 420.0f;
-const static int totalSize = 420 * 420;// sizeX * sizeY
+const static float sizeX = 1000.0f;
+const static float sizeY = 1000.0f;
+const static int totalSize = 1000 * 1000;// sizeX * sizeY
 const static int typeSizeRatio = 32.0f / 8.0f;
 //const static int passesPerThread = ceil(totalSize / 4 / numThreads);
 const static int outOfBounds = -1;

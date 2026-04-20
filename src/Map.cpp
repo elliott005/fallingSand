@@ -6,7 +6,7 @@ Map::Map(int sizeX, int sizeY, SDL_GPUDevice* gpuDevice) {
     this->numParticles = this->sizeX * this->sizeY;
     this->particleMap = (char*) std::calloc(this->numParticles, sizeof(char));
 
-    this->particleMap[2] = 1;
+    //this->particleMap[2] = 1;
 
     this->gpuDevice = gpuDevice;
 
@@ -54,8 +54,8 @@ void Map::quit() {
 }
 
 void Map::update(double dt, int screen_width, int screen_height) {
-    float rectSizeX = screen_width / sizeX;
-    float rectSizeY = screen_height / sizeY;
+    float rectSizeX = (float)screen_width / (float)sizeX;
+    float rectSizeY = (float)screen_height / (float)sizeY;
     float mouseX, mouseY;
     SDL_MouseButtonFlags mouseButtonFlags = SDL_GetMouseState(&mouseX, &mouseY);
     if (mouseButtonFlags & SDL_BUTTON_LMASK) {
@@ -84,26 +84,55 @@ void Map::update(double dt, int screen_width, int screen_height) {
 }
 
 void Map::draw(SDL_Renderer* renderer, int screen_width, int screen_height) {
-    int rectSizeX = screen_width / sizeX;
-    int rectSizeY = screen_height / sizeY;
-    SDL_FRect rect;
-    rect.w = rectSizeX;
-    rect.h = rectSizeY;
-    int totalSand = 0;
+    float rectSizeX = (float)screen_width / (float)sizeX;
+    float rectSizeY = (float)screen_height / (float)sizeY;
+    std::vector<SDL_FRect> rects;
     for (int i = 0; i < this->numParticles; i++) {
         enum ParticleType t = (enum ParticleType)particleMap[i];
         if (t == ParticleType::air) {
             continue;
         }
         if (t == ParticleType::sand) {
-            totalSand++;
+            SDL_FRect rect;
+            rect.w = rectSizeX;
+            rect.h = rectSizeY;
             idxToCoord(i, &rect.x, &rect.y);
             rect.x *= rect.w;
             rect.y *= rect.h;
-            SDL_SetRenderDrawColor(renderer, 0, 255, 100, SDL_ALPHA_OPAQUE);
-            SDL_RenderFillRect(renderer, &rect);
+            rects.push_back(rect);
         }
     }
+    SDL_SetRenderDrawColor(renderer, 252, 186, 3, SDL_ALPHA_OPAQUE);
+    if (rects.size() > 0) {
+        SDL_RenderFillRects(renderer, &rects[0], rects.size());
+    }
+    /* int totalSand = 0;
+    for (int i = 0; i < this->numParticles; i++) {
+        enum ParticleType t = (enum ParticleType)particleMap[i];
+        if (t == ParticleType::sand) {
+            totalSand++;
+        }
+    }
+    SDL_FRect* rects = (SDL_FRect*)std::malloc(sizeof(SDL_FRect) * totalSand);
+    int currentRect = 0;
+    for (int i = 0; i < this->numParticles; i++) {
+        enum ParticleType t = (enum ParticleType)particleMap[i];
+        if (t == ParticleType::air) {
+            continue;
+        }
+        if (t == ParticleType::sand) {
+            SDL_FRect* rect = &rects[currentRect];
+            rect->w = rectSizeX;
+            rect->h = rectSizeY;
+            idxToCoord(i, &rect->x, &rect->y);
+            rect->x *= rect->w;
+            rect->y *= rect->h;
+            currentRect++;
+        }
+    }
+    SDL_SetRenderDrawColor(renderer, 252, 186, 3, SDL_ALPHA_OPAQUE);
+    SDL_RenderFillRects(renderer, rects, totalSand);
+    std::free(rects); */
     //printf("total sand: %i\n", totalSand);
 }
 

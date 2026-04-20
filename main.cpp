@@ -8,7 +8,7 @@ int main(int argc, char* args[]) {
     //Main loop flag
 	bool quit = false;
 
-	double frameRate = 1.0 / 100.0;
+	double frameRate = 1.0 / 1000.0;
 
 	Uint64 NOW = SDL_GetPerformanceCounter();
 	Uint64 LAST = 0;
@@ -18,7 +18,7 @@ int main(int argc, char* args[]) {
 
 	InitializeAssetLoader();	
 
-	Map map(420, 420, gpuDevice);
+	Map map(1000, 1000, gpuDevice);
 
     while (!quit) {
         while (SDL_PollEvent(&game.m_window_event) != 0)
@@ -34,15 +34,18 @@ int main(int argc, char* args[]) {
 		NOW = SDL_GetPerformanceCounter();
 		deltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
 		deltaTime *= 0.001;
-		SDL_Delay(frameRate * 1000);
+		//SDL_Delay(frameRate * 1000);
+		//printf("FPS: %f\n", 1.0f / deltaTime);
 
 		map.update(deltaTime, game.SCREEN_WIDTH, game.SCREEN_HEIGHT);
-        
+		
 		SDL_SetRenderDrawColor(game.m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(game.m_renderer);
-
+		
         SDL_SetRenderDrawColor(game.m_renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+		float before = SDL_GetTicks();
 		map.draw(game.m_renderer, game.SCREEN_WIDTH, game.SCREEN_HEIGHT);
+        printf("drawTime: %f\n", (SDL_GetTicks() - before) * 0.001f);
 
 		SDL_RenderPresent(game.m_renderer);
 	}

@@ -14,6 +14,6 @@ public:
     SDL_Window* m_window = NULL;
     SDL_Surface* m_window_surface = NULL;
     SDL_Renderer* m_renderer = NULL;
-    const int SCREEN_WIDTH = 2000;
-    const int SCREEN_HEIGHT = 1300;
+    const int SCREEN_WIDTH = 2400;
+    const int SCREEN_HEIGHT = 1350;
 };

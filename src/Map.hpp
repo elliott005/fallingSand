@@ -22,7 +22,7 @@ private:
     int sizeX, sizeY;
     int numParticles;
     char* particleMap;
-    const float spawnSize = 5.0;
+    const float spawnSize = 10.0;
     SDL_GPUDevice* gpuDevice;
     SDL_GPUComputePipeline* computePipeline;
     SDL_GPUCommandBuffer* cmdBuf;
@@ -32,7 +32,7 @@ private:
     int threadGroupsY;
     const int threadsX = 64;
     const int threadsY = 1;
-    const float GPUUpdateCooldown = 0.02;
+    const float GPUUpdateCooldown = 0.005;
     float GPUUpdateTimer = 0.0;
     void sendToGPU();
     void getFromGPU();
