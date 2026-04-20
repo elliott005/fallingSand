@@ -1,0 +1,595 @@
+#pragma clang diagnostic ignored "-Wmissing-prototypes"
+#pragma clang diagnostic ignored "-Wmissing-braces"
+
+#include <metal_stdlib>
+#include <simd/simd.h>
+
+using namespace metal;
+
+template<typename T, size_t Num>
+struct spvUnsafeArray
+{
+    T elements[Num ? Num : 1];
+    
+    thread T& operator [] (size_t pos) thread
+    {
+        return elements[pos];
+    }
+    constexpr const thread T& operator [] (size_t pos) const thread
+    {
+        return elements[pos];
+    }
+    
+    device T& operator [] (size_t pos) device
+    {
+        return elements[pos];
+    }
+    constexpr const device T& operator [] (size_t pos) const device
+    {
+        return elements[pos];
+    }
+    
+    constexpr const constant T& operator [] (size_t pos) const constant
+    {
+        return elements[pos];
+    }
+    
+    threadgroup T& operator [] (size_t pos) threadgroup
+    {
+        return elements[pos];
+    }
+    constexpr const threadgroup T& operator [] (size_t pos) const threadgroup
+    {
+        return elements[pos];
+    }
+};
+
+struct type_RWStructuredBuffer_uint
+{
+    uint _m0[1];
+};
+
+kernel void main0(device type_RWStructuredBuffer_uint& sandPositionsIn [[buffer(0)]], device type_RWStructuredBuffer_uint& sandPositionsOut [[buffer(1)]], uint3 gl_GlobalInvocationID [[thread_position_in_grid]])
+{
+    spvUnsafeArray<int, 4> _50;
+    for (int _54 = 0; _54 < 4; _54++)
+    {
+        int _63 = int((gl_GlobalInvocationID.x * 4u) + uint(_54));
+        int _83;
+        do
+        {
+            if (_63 == (-1))
+            {
+                _83 = -1;
+                break;
+            }
+            float _69 = float(_63);
+            _83 = int((sandPositionsIn._m0[uint(floor(_69 * 0.25))] >> (uint(int(fmod(_69, 4.0)) * 8) & 31u)) & 255u);
+            break;
+        } while(false);
+        if (_83 == 0)
+        {
+            float _89;
+            int _91;
+            int _93;
+            float _94;
+            bool _95;
+            int _99;
+            do
+            {
+                _89 = float(_63);
+                _91 = int(fmod(_89, 420.0));
+                _93 = int(_89 * 0.00238095247186720371246337890625);
+                _94 = float(_91);
+                _95 = _94 >= 418.0;
+                if (_95)
+                {
+                    _99 = -1;
+                    break;
+                }
+                _99 = _63 + 2;
+                break;
+            } while(false);
+            int _119;
+            do
+            {
+                if (_99 == (-1))
+                {
+                    _119 = -1;
+                    break;
+                }
+                float _105 = float(_99);
+                _119 = int((sandPositionsIn._m0[uint(floor(_105 * 0.25))] >> (uint(int(fmod(_105, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            int _131;
+            do
+            {
+                bool _126;
+                if (!_95)
+                {
+                    _126 = _93 <= 0;
+                }
+                else
+                {
+                    _126 = true;
+                }
+                if (_126)
+                {
+                    _131 = -1;
+                    break;
+                }
+                _131 = int(_89 + (-418.0));
+                break;
+            } while(false);
+            int _151;
+            do
+            {
+                if (_131 == (-1))
+                {
+                    _151 = -1;
+                    break;
+                }
+                float _137 = float(_131);
+                _151 = int((sandPositionsIn._m0[uint(floor(_137 * 0.25))] >> (uint(int(fmod(_137, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _154;
+            int _164;
+            do
+            {
+                _154 = _94 >= 419.0;
+                bool _159;
+                if (!_154)
+                {
+                    _159 = _93 <= 0;
+                }
+                else
+                {
+                    _159 = true;
+                }
+                if (_159)
+                {
+                    _164 = -1;
+                    break;
+                }
+                _164 = int(_89 + (-419.0));
+                break;
+            } while(false);
+            int _184;
+            do
+            {
+                if (_164 == (-1))
+                {
+                    _184 = -1;
+                    break;
+                }
+                float _170 = float(_164);
+                _184 = int((sandPositionsIn._m0[uint(floor(_170 * 0.25))] >> (uint(int(fmod(_170, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _215;
+            if (_184 == 1)
+            {
+                int _193;
+                do
+                {
+                    if (_154)
+                    {
+                        _193 = -1;
+                        break;
+                    }
+                    _193 = _63 + 1;
+                    break;
+                } while(false);
+                int _213;
+                do
+                {
+                    if (_193 == (-1))
+                    {
+                        _213 = -1;
+                        break;
+                    }
+                    float _199 = float(_193);
+                    _213 = int((sandPositionsIn._m0[uint(floor(_199 * 0.25))] >> (uint(int(fmod(_199, 4.0)) * 8) & 31u)) & 255u);
+                    break;
+                } while(false);
+                _215 = _213 == 1;
+            }
+            else
+            {
+                _215 = false;
+            }
+            bool _234;
+            if (_215)
+            {
+                bool _223;
+                if (!(_119 == 1))
+                {
+                    _223 = _119 == (-1);
+                }
+                else
+                {
+                    _223 = true;
+                }
+                bool _228;
+                if (!_223)
+                {
+                    _228 = _151 == 1;
+                }
+                else
+                {
+                    _228 = true;
+                }
+                bool _233;
+                if (!_228)
+                {
+                    _233 = _151 == (-1);
+                }
+                else
+                {
+                    _233 = true;
+                }
+                _234 = _233;
+            }
+            else
+            {
+                _234 = false;
+            }
+            bool _238;
+            int _248;
+            do
+            {
+                _238 = _91 <= 0;
+                bool _243;
+                if (!_238)
+                {
+                    _243 = _93 <= 0;
+                }
+                else
+                {
+                    _243 = true;
+                }
+                if (_243)
+                {
+                    _248 = -1;
+                    break;
+                }
+                _248 = int(_89 - 421.0);
+                break;
+            } while(false);
+            int _268;
+            do
+            {
+                if (_248 == (-1))
+                {
+                    _268 = -1;
+                    break;
+                }
+                float _254 = float(_248);
+                _268 = int((sandPositionsIn._m0[uint(floor(_254 * 0.25))] >> (uint(int(fmod(_254, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _299;
+            if (_268 == 1)
+            {
+                int _277;
+                do
+                {
+                    if (_238)
+                    {
+                        _277 = -1;
+                        break;
+                    }
+                    _277 = _63 - 1;
+                    break;
+                } while(false);
+                int _297;
+                do
+                {
+                    if (_277 == (-1))
+                    {
+                        _297 = -1;
+                        break;
+                    }
+                    float _283 = float(_277);
+                    _297 = int((sandPositionsIn._m0[uint(floor(_283 * 0.25))] >> (uint(int(fmod(_283, 4.0)) * 8) & 31u)) & 255u);
+                    break;
+                } while(false);
+                _299 = _297 == 1;
+            }
+            else
+            {
+                _299 = false;
+            }
+            int _308;
+            do
+            {
+                float _303 = _89 - 420.0;
+                if (_303 < 0.0)
+                {
+                    _308 = -1;
+                    break;
+                }
+                _308 = int(_303);
+                break;
+            } while(false);
+            int _328;
+            do
+            {
+                if (_308 == (-1))
+                {
+                    _328 = -1;
+                    break;
+                }
+                float _314 = float(_308);
+                _328 = int((sandPositionsIn._m0[uint(floor(_314 * 0.25))] >> (uint(int(fmod(_314, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            _50[_54] = (_328 == 1) ? 1 : (_299 ? 1 : int(_234));
+            continue;
+        }
+        if (_83 == 1)
+        {
+            float _337;
+            int _339;
+            int _341;
+            bool _342;
+            int _346;
+            do
+            {
+                _337 = float(_63);
+                _339 = int(fmod(_337, 420.0));
+                _341 = int(_337 * 0.00238095247186720371246337890625);
+                _342 = _339 <= 1;
+                if (_342)
+                {
+                    _346 = -1;
+                    break;
+                }
+                _346 = _63 - 2;
+                break;
+            } while(false);
+            int _366;
+            do
+            {
+                if (_346 == (-1))
+                {
+                    _366 = -1;
+                    break;
+                }
+                float _352 = float(_346);
+                _366 = int((sandPositionsIn._m0[uint(floor(_352 * 0.25))] >> (uint(int(fmod(_352, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            int _379;
+            do
+            {
+                bool _374;
+                if (!_342)
+                {
+                    _374 = float(_341) >= 419.0;
+                }
+                else
+                {
+                    _374 = true;
+                }
+                if (_374)
+                {
+                    _379 = -1;
+                    break;
+                }
+                _379 = int(_337 + 418.0);
+                break;
+            } while(false);
+            int _399;
+            do
+            {
+                if (_379 == (-1))
+                {
+                    _399 = -1;
+                    break;
+                }
+                float _385 = float(_379);
+                _399 = int((sandPositionsIn._m0[uint(floor(_385 * 0.25))] >> (uint(int(fmod(_385, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _402;
+            int _413;
+            do
+            {
+                _402 = _339 <= 0;
+                bool _408;
+                if (!_402)
+                {
+                    _408 = float(_341) >= 419.0;
+                }
+                else
+                {
+                    _408 = true;
+                }
+                if (_408)
+                {
+                    _413 = -1;
+                    break;
+                }
+                _413 = int(_337 + 419.0);
+                break;
+            } while(false);
+            int _433;
+            do
+            {
+                if (_413 == (-1))
+                {
+                    _433 = -1;
+                    break;
+                }
+                float _419 = float(_413);
+                _433 = int((sandPositionsIn._m0[uint(floor(_419 * 0.25))] >> (uint(int(fmod(_419, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _464;
+            if (_433 == 0)
+            {
+                int _442;
+                do
+                {
+                    if (_402)
+                    {
+                        _442 = -1;
+                        break;
+                    }
+                    _442 = _63 - 1;
+                    break;
+                } while(false);
+                int _462;
+                do
+                {
+                    if (_442 == (-1))
+                    {
+                        _462 = -1;
+                        break;
+                    }
+                    float _448 = float(_442);
+                    _462 = int((sandPositionsIn._m0[uint(floor(_448 * 0.25))] >> (uint(int(fmod(_448, 4.0)) * 8) & 31u)) & 255u);
+                    break;
+                } while(false);
+                _464 = _462 == 0;
+            }
+            else
+            {
+                _464 = false;
+            }
+            bool _483;
+            if (_464)
+            {
+                bool _472;
+                if (!(_366 == 0))
+                {
+                    _472 = _366 == (-1);
+                }
+                else
+                {
+                    _472 = true;
+                }
+                bool _477;
+                if (!_472)
+                {
+                    _477 = _399 == 0;
+                }
+                else
+                {
+                    _477 = true;
+                }
+                bool _482;
+                if (!_477)
+                {
+                    _482 = _399 == (-1);
+                }
+                else
+                {
+                    _482 = true;
+                }
+                _483 = _482;
+            }
+            else
+            {
+                _483 = false;
+            }
+            bool _488;
+            int _499;
+            do
+            {
+                _488 = float(_339) >= 419.0;
+                bool _494;
+                if (!_488)
+                {
+                    _494 = float(_341) >= 419.0;
+                }
+                else
+                {
+                    _494 = true;
+                }
+                if (_494)
+                {
+                    _499 = -1;
+                    break;
+                }
+                _499 = int(_337 + 421.0);
+                break;
+            } while(false);
+            int _519;
+            do
+            {
+                if (_499 == (-1))
+                {
+                    _519 = -1;
+                    break;
+                }
+                float _505 = float(_499);
+                _519 = int((sandPositionsIn._m0[uint(floor(_505 * 0.25))] >> (uint(int(fmod(_505, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _550;
+            if (_519 == 0)
+            {
+                int _528;
+                do
+                {
+                    if (_488)
+                    {
+                        _528 = -1;
+                        break;
+                    }
+                    _528 = _63 + 1;
+                    break;
+                } while(false);
+                int _548;
+                do
+                {
+                    if (_528 == (-1))
+                    {
+                        _548 = -1;
+                        break;
+                    }
+                    float _534 = float(_528);
+                    _548 = int((sandPositionsIn._m0[uint(floor(_534 * 0.25))] >> (uint(int(fmod(_534, 4.0)) * 8) & 31u)) & 255u);
+                    break;
+                } while(false);
+                _550 = _548 == 0;
+            }
+            else
+            {
+                _550 = false;
+            }
+            int _559;
+            do
+            {
+                float _554 = _337 + 420.0;
+                if (_554 >= 176400.0)
+                {
+                    _559 = -1;
+                    break;
+                }
+                _559 = int(_554);
+                break;
+            } while(false);
+            int _579;
+            do
+            {
+                if (_559 == (-1))
+                {
+                    _579 = -1;
+                    break;
+                }
+                float _565 = float(_559);
+                _579 = int((sandPositionsIn._m0[uint(floor(_565 * 0.25))] >> (uint(int(fmod(_565, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            _50[_54] = (_579 == 0) ? 0 : (_550 ? 0 : (_483 ? 0 : 1));
+            continue;
+        }
+    }
+    sandPositionsOut._m0[gl_GlobalInvocationID.x] = (((uint(_50[0]) & 255u) | ((uint(_50[1]) & 255u) << 8u)) | ((uint(_50[2]) & 255u) << 16u)) | ((uint(_50[3]) & 255u) << 24u);
+}
+
