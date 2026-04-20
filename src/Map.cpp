@@ -70,14 +70,28 @@ void Map::update(double dt, int screen_width, int screen_height) {
             }
         }
     }
+    if (mouseButtonFlags & SDL_BUTTON_RMASK) {
+        int coordX = std::floor(mouseX / rectSizeX);
+        int coordY = std::floor(mouseY / rectSizeY);
+        for (int x = coordX - this->spawnSize / 2.0f; x < coordX + this->spawnSize / 2.0f; x++) {
+            for (int y = coordY - this->spawnSize / 2.0f; y < coordY + this->spawnSize / 2.0f; y++) {
+                if (x >= 0 and x < this->sizeX and y >= 0 and y < this->sizeY) {
+                    int idx = this->coordToIdx(x, y);
+                    this->particleMap[idx] = ParticleType::air;
+                }
+            }
+        }
+    }
     this->GPUUpdateTimer += dt;
     if (this->GPUUpdateTimer > this->GPUUpdateCooldown) {
-        this->GPUUpdateTimer = 0.0;
-        float LAST = SDL_GetTicks();
-        this->sendToGPU();
-        this->getFromGPU();
-		float NOW = SDL_GetTicks();
-		float GPUTime = ((NOW - LAST) * 0.001f);
+        for (float i = this->GPUUpdateTimer; i > 0.0f; i -= this->GPUUpdateCooldown) {
+            this->GPUUpdateTimer = 0.0;
+            float LAST = SDL_GetTicks();
+            this->sendToGPU();
+            this->getFromGPU();
+            float NOW = SDL_GetTicks();
+            float GPUTime = ((NOW - LAST) * 0.001f);
+        }
 		//GPUTime *= 0.001;
         //printf("GPU time: %f\n", GPUTime);
     }

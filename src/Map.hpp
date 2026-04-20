@@ -22,7 +22,7 @@ private:
     int sizeX, sizeY;
     int numParticles;
     char* particleMap;
-    const float spawnSize = 10.0;
+    const float spawnSize = 20.0;
     SDL_GPUDevice* gpuDevice;
     SDL_GPUComputePipeline* computePipeline;
     SDL_GPUCommandBuffer* cmdBuf;
