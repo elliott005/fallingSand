@@ -49,547 +49,555 @@ struct type_RWStructuredBuffer_uint
     uint _m0[1];
 };
 
-kernel void main0(device type_RWStructuredBuffer_uint& sandPositionsIn [[buffer(0)]], device type_RWStructuredBuffer_uint& sandPositionsOut [[buffer(1)]], uint3 gl_GlobalInvocationID [[thread_position_in_grid]])
+kernel void main0(device type_RWStructuredBuffer_uint& sandPositionsOut [[buffer(0)]], device type_RWStructuredBuffer_uint& sandPositionsIn [[buffer(1)]], texture2d<float, access::write> outImage [[texture(0)]], uint3 gl_GlobalInvocationID [[thread_position_in_grid]])
 {
-    spvUnsafeArray<int, 4> _50;
-    for (int _54 = 0; _54 < 4; _54++)
+    spvUnsafeArray<int, 4> _63;
+    for (int _67 = 0; _67 < 4; _67++)
     {
-        int _63 = int((gl_GlobalInvocationID.x * 4u) + uint(_54));
-        int _83;
+        int _76 = int((gl_GlobalInvocationID.x * 4u) + uint(_67));
+        int _96;
         do
         {
-            if (_63 == (-1))
+            if (_76 == (-1))
             {
-                _83 = -1;
+                _96 = -1;
                 break;
             }
-            float _69 = float(_63);
-            _83 = int((sandPositionsIn._m0[uint(floor(_69 * 0.25))] >> (uint(int(fmod(_69, 4.0)) * 8) & 31u)) & 255u);
+            float _82 = float(_76);
+            _96 = int((sandPositionsIn._m0[uint(floor(_82 * 0.25))] >> (uint(int(fmod(_82, 4.0)) * 8) & 31u)) & 255u);
             break;
         } while(false);
-        if (_83 == 0)
+        if (_96 == 0)
         {
-            float _89;
-            int _91;
-            int _93;
-            float _94;
-            bool _95;
-            int _99;
+            float _102;
+            int _104;
+            int _106;
+            int2 _107;
+            float _108;
+            bool _109;
+            int _113;
             do
             {
-                _89 = float(_63);
-                _91 = int(fmod(_89, 1000.0));
-                _93 = int(_89 * 0.001000000047497451305389404296875);
-                _94 = float(_91);
-                _95 = _94 >= 998.0;
-                if (_95)
+                _102 = float(_76);
+                _104 = int(fmod(_102, 1000.0));
+                _106 = int(_102 * 0.001000000047497451305389404296875);
+                _107 = int2(_104, _106);
+                _108 = float(_104);
+                _109 = _108 >= 998.0;
+                if (_109)
                 {
-                    _99 = -1;
+                    _113 = -1;
                     break;
                 }
-                _99 = _63 + 2;
+                _113 = _76 + 2;
                 break;
             } while(false);
-            int _119;
+            int _133;
             do
             {
-                if (_99 == (-1))
+                if (_113 == (-1))
                 {
-                    _119 = -1;
+                    _133 = -1;
                     break;
                 }
-                float _105 = float(_99);
-                _119 = int((sandPositionsIn._m0[uint(floor(_105 * 0.25))] >> (uint(int(fmod(_105, 4.0)) * 8) & 31u)) & 255u);
+                float _119 = float(_113);
+                _133 = int((sandPositionsIn._m0[uint(floor(_119 * 0.25))] >> (uint(int(fmod(_119, 4.0)) * 8) & 31u)) & 255u);
                 break;
             } while(false);
-            int _131;
+            int _145;
             do
             {
-                bool _126;
-                if (!_95)
+                bool _140;
+                if (!_109)
                 {
-                    _126 = _93 <= 0;
+                    _140 = _106 <= 0;
                 }
                 else
                 {
-                    _126 = true;
+                    _140 = true;
                 }
-                if (_126)
+                if (_140)
                 {
-                    _131 = -1;
+                    _145 = -1;
                     break;
                 }
-                _131 = int(_89 + (-998.0));
+                _145 = int(_102 + (-998.0));
                 break;
             } while(false);
-            int _151;
+            int _165;
             do
             {
-                if (_131 == (-1))
+                if (_145 == (-1))
                 {
-                    _151 = -1;
+                    _165 = -1;
                     break;
                 }
-                float _137 = float(_131);
-                _151 = int((sandPositionsIn._m0[uint(floor(_137 * 0.25))] >> (uint(int(fmod(_137, 4.0)) * 8) & 31u)) & 255u);
+                float _151 = float(_145);
+                _165 = int((sandPositionsIn._m0[uint(floor(_151 * 0.25))] >> (uint(int(fmod(_151, 4.0)) * 8) & 31u)) & 255u);
                 break;
             } while(false);
-            bool _154;
-            int _164;
+            bool _168;
+            int _178;
             do
             {
-                _154 = _94 >= 999.0;
-                bool _159;
-                if (!_154)
+                _168 = _108 >= 999.0;
+                bool _173;
+                if (!_168)
                 {
-                    _159 = _93 <= 0;
+                    _173 = _106 <= 0;
                 }
                 else
                 {
-                    _159 = true;
+                    _173 = true;
                 }
-                if (_159)
+                if (_173)
                 {
-                    _164 = -1;
+                    _178 = -1;
                     break;
                 }
-                _164 = int(_89 + (-999.0));
+                _178 = int(_102 + (-999.0));
                 break;
             } while(false);
-            int _184;
+            int _198;
             do
             {
-                if (_164 == (-1))
+                if (_178 == (-1))
                 {
-                    _184 = -1;
+                    _198 = -1;
                     break;
                 }
-                float _170 = float(_164);
-                _184 = int((sandPositionsIn._m0[uint(floor(_170 * 0.25))] >> (uint(int(fmod(_170, 4.0)) * 8) & 31u)) & 255u);
+                float _184 = float(_178);
+                _198 = int((sandPositionsIn._m0[uint(floor(_184 * 0.25))] >> (uint(int(fmod(_184, 4.0)) * 8) & 31u)) & 255u);
                 break;
             } while(false);
-            bool _215;
-            if (_184 == 1)
+            bool _229;
+            if (_198 == 1)
             {
-                int _193;
+                int _207;
                 do
                 {
-                    if (_154)
+                    if (_168)
                     {
-                        _193 = -1;
+                        _207 = -1;
                         break;
                     }
-                    _193 = _63 + 1;
+                    _207 = _76 + 1;
                     break;
                 } while(false);
-                int _213;
+                int _227;
                 do
                 {
-                    if (_193 == (-1))
+                    if (_207 == (-1))
                     {
-                        _213 = -1;
+                        _227 = -1;
                         break;
                     }
-                    float _199 = float(_193);
-                    _213 = int((sandPositionsIn._m0[uint(floor(_199 * 0.25))] >> (uint(int(fmod(_199, 4.0)) * 8) & 31u)) & 255u);
+                    float _213 = float(_207);
+                    _227 = int((sandPositionsIn._m0[uint(floor(_213 * 0.25))] >> (uint(int(fmod(_213, 4.0)) * 8) & 31u)) & 255u);
                     break;
                 } while(false);
-                _215 = _213 == 1;
+                _229 = _227 == 1;
             }
             else
             {
-                _215 = false;
+                _229 = false;
             }
-            bool _234;
-            if (_215)
+            bool _248;
+            if (_229)
             {
-                bool _223;
-                if (!(_119 == 1))
+                bool _237;
+                if (!(_133 == 1))
                 {
-                    _223 = _119 == (-1);
+                    _237 = _133 == (-1);
                 }
                 else
                 {
-                    _223 = true;
+                    _237 = true;
                 }
-                bool _228;
-                if (!_223)
+                bool _242;
+                if (!_237)
                 {
-                    _228 = _151 == 1;
+                    _242 = _165 == 1;
                 }
                 else
                 {
-                    _228 = true;
+                    _242 = true;
                 }
-                bool _233;
-                if (!_228)
+                bool _247;
+                if (!_242)
                 {
-                    _233 = _151 == (-1);
+                    _247 = _165 == (-1);
                 }
                 else
                 {
-                    _233 = true;
+                    _247 = true;
                 }
-                _234 = _233;
+                _248 = _247;
             }
             else
             {
-                _234 = false;
+                _248 = false;
             }
-            bool _238;
-            int _248;
+            bool _252;
+            int _262;
             do
             {
-                _238 = _91 <= 0;
-                bool _243;
-                if (!_238)
+                _252 = _104 <= 0;
+                bool _257;
+                if (!_252)
                 {
-                    _243 = _93 <= 0;
+                    _257 = _106 <= 0;
                 }
                 else
                 {
-                    _243 = true;
+                    _257 = true;
                 }
-                if (_243)
+                if (_257)
                 {
-                    _248 = -1;
+                    _262 = -1;
                     break;
                 }
-                _248 = int(_89 - 1001.0);
+                _262 = int(_102 - 1001.0);
                 break;
             } while(false);
-            int _268;
+            int _282;
             do
             {
-                if (_248 == (-1))
+                if (_262 == (-1))
                 {
-                    _268 = -1;
+                    _282 = -1;
                     break;
                 }
-                float _254 = float(_248);
-                _268 = int((sandPositionsIn._m0[uint(floor(_254 * 0.25))] >> (uint(int(fmod(_254, 4.0)) * 8) & 31u)) & 255u);
+                float _268 = float(_262);
+                _282 = int((sandPositionsIn._m0[uint(floor(_268 * 0.25))] >> (uint(int(fmod(_268, 4.0)) * 8) & 31u)) & 255u);
                 break;
             } while(false);
-            bool _299;
-            if (_268 == 1)
+            bool _313;
+            if (_282 == 1)
             {
-                int _277;
+                int _291;
                 do
                 {
-                    if (_238)
+                    if (_252)
                     {
-                        _277 = -1;
+                        _291 = -1;
                         break;
                     }
-                    _277 = _63 - 1;
+                    _291 = _76 - 1;
                     break;
                 } while(false);
-                int _297;
+                int _311;
                 do
                 {
-                    if (_277 == (-1))
+                    if (_291 == (-1))
                     {
-                        _297 = -1;
+                        _311 = -1;
                         break;
                     }
-                    float _283 = float(_277);
-                    _297 = int((sandPositionsIn._m0[uint(floor(_283 * 0.25))] >> (uint(int(fmod(_283, 4.0)) * 8) & 31u)) & 255u);
+                    float _297 = float(_291);
+                    _311 = int((sandPositionsIn._m0[uint(floor(_297 * 0.25))] >> (uint(int(fmod(_297, 4.0)) * 8) & 31u)) & 255u);
                     break;
                 } while(false);
-                _299 = _297 == 1;
+                _313 = _311 == 1;
             }
             else
             {
-                _299 = false;
+                _313 = false;
             }
-            int _308;
+            int _322;
             do
             {
-                float _303 = _89 - 1000.0;
-                if (_303 < 0.0)
+                float _317 = _102 - 1000.0;
+                if (_317 < 0.0)
                 {
-                    _308 = -1;
+                    _322 = -1;
                     break;
                 }
-                _308 = int(_303);
+                _322 = int(_317);
                 break;
             } while(false);
-            int _328;
+            int _342;
             do
             {
-                if (_308 == (-1))
+                if (_322 == (-1))
                 {
-                    _328 = -1;
+                    _342 = -1;
                     break;
                 }
-                float _314 = float(_308);
-                _328 = int((sandPositionsIn._m0[uint(floor(_314 * 0.25))] >> (uint(int(fmod(_314, 4.0)) * 8) & 31u)) & 255u);
+                float _328 = float(_322);
+                _342 = int((sandPositionsIn._m0[uint(floor(_328 * 0.25))] >> (uint(int(fmod(_328, 4.0)) * 8) & 31u)) & 255u);
                 break;
             } while(false);
-            _50[_54] = (_328 == 1) ? 1 : (_299 ? 1 : int(_234));
+            int _344 = (_342 == 1) ? 1 : (_313 ? 1 : int(_248));
+            _63[_67] = _344;
+            outImage.write(select(float4(0.800000011920928955078125, 1.0, 0.20000000298023223876953125, 1.0), float4(0.100000001490116119384765625, 0.100000001490116119384765625, 0.100000001490116119384765625, 1.0), bool4(_344 == 0)), uint2(uint2(_107)));
             continue;
         }
-        if (_83 == 1)
+        if (_96 == 1)
         {
-            float _337;
-            int _339;
-            int _341;
-            bool _342;
-            int _346;
-            do
-            {
-                _337 = float(_63);
-                _339 = int(fmod(_337, 1000.0));
-                _341 = int(_337 * 0.001000000047497451305389404296875);
-                _342 = _339 <= 1;
-                if (_342)
-                {
-                    _346 = -1;
-                    break;
-                }
-                _346 = _63 - 2;
-                break;
-            } while(false);
+            float _356;
+            int _358;
+            int _360;
+            int2 _361;
+            bool _362;
             int _366;
             do
             {
-                if (_346 == (-1))
+                _356 = float(_76);
+                _358 = int(fmod(_356, 1000.0));
+                _360 = int(_356 * 0.001000000047497451305389404296875);
+                _361 = int2(_358, _360);
+                _362 = _358 <= 1;
+                if (_362)
                 {
                     _366 = -1;
                     break;
                 }
-                float _352 = float(_346);
-                _366 = int((sandPositionsIn._m0[uint(floor(_352 * 0.25))] >> (uint(int(fmod(_352, 4.0)) * 8) & 31u)) & 255u);
+                _366 = _76 - 2;
                 break;
             } while(false);
-            int _379;
+            int _386;
             do
             {
-                bool _374;
-                if (!_342)
+                if (_366 == (-1))
                 {
-                    _374 = float(_341) >= 999.0;
-                }
-                else
-                {
-                    _374 = true;
-                }
-                if (_374)
-                {
-                    _379 = -1;
+                    _386 = -1;
                     break;
                 }
-                _379 = int(_337 + 998.0);
+                float _372 = float(_366);
+                _386 = int((sandPositionsIn._m0[uint(floor(_372 * 0.25))] >> (uint(int(fmod(_372, 4.0)) * 8) & 31u)) & 255u);
                 break;
             } while(false);
             int _399;
             do
             {
-                if (_379 == (-1))
+                bool _394;
+                if (!_362)
+                {
+                    _394 = float(_360) >= 999.0;
+                }
+                else
+                {
+                    _394 = true;
+                }
+                if (_394)
                 {
                     _399 = -1;
                     break;
                 }
-                float _385 = float(_379);
-                _399 = int((sandPositionsIn._m0[uint(floor(_385 * 0.25))] >> (uint(int(fmod(_385, 4.0)) * 8) & 31u)) & 255u);
+                _399 = int(_356 + 998.0);
                 break;
             } while(false);
-            bool _402;
-            int _413;
+            int _419;
             do
             {
-                _402 = _339 <= 0;
-                bool _408;
-                if (!_402)
+                if (_399 == (-1))
                 {
-                    _408 = float(_341) >= 999.0;
-                }
-                else
-                {
-                    _408 = true;
-                }
-                if (_408)
-                {
-                    _413 = -1;
+                    _419 = -1;
                     break;
                 }
-                _413 = int(_337 + 999.0);
+                float _405 = float(_399);
+                _419 = int((sandPositionsIn._m0[uint(floor(_405 * 0.25))] >> (uint(int(fmod(_405, 4.0)) * 8) & 31u)) & 255u);
                 break;
             } while(false);
+            bool _422;
             int _433;
             do
             {
-                if (_413 == (-1))
+                _422 = _358 <= 0;
+                bool _428;
+                if (!_422)
+                {
+                    _428 = float(_360) >= 999.0;
+                }
+                else
+                {
+                    _428 = true;
+                }
+                if (_428)
                 {
                     _433 = -1;
                     break;
                 }
-                float _419 = float(_413);
-                _433 = int((sandPositionsIn._m0[uint(floor(_419 * 0.25))] >> (uint(int(fmod(_419, 4.0)) * 8) & 31u)) & 255u);
+                _433 = int(_356 + 999.0);
                 break;
             } while(false);
-            bool _464;
-            if (_433 == 0)
+            int _453;
+            do
             {
-                int _442;
-                do
+                if (_433 == (-1))
                 {
-                    if (_402)
-                    {
-                        _442 = -1;
-                        break;
-                    }
-                    _442 = _63 - 1;
+                    _453 = -1;
                     break;
-                } while(false);
+                }
+                float _439 = float(_433);
+                _453 = int((sandPositionsIn._m0[uint(floor(_439 * 0.25))] >> (uint(int(fmod(_439, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _484;
+            if (_453 == 0)
+            {
                 int _462;
                 do
                 {
-                    if (_442 == (-1))
+                    if (_422)
                     {
                         _462 = -1;
                         break;
                     }
-                    float _448 = float(_442);
-                    _462 = int((sandPositionsIn._m0[uint(floor(_448 * 0.25))] >> (uint(int(fmod(_448, 4.0)) * 8) & 31u)) & 255u);
+                    _462 = _76 - 1;
                     break;
                 } while(false);
-                _464 = _462 == 0;
-            }
-            else
-            {
-                _464 = false;
-            }
-            bool _483;
-            if (_464)
-            {
-                bool _472;
-                if (!(_366 == 0))
+                int _482;
+                do
                 {
-                    _472 = _366 == (-1);
-                }
-                else
-                {
-                    _472 = true;
-                }
-                bool _477;
-                if (!_472)
-                {
-                    _477 = _399 == 0;
-                }
-                else
-                {
-                    _477 = true;
-                }
-                bool _482;
-                if (!_477)
-                {
-                    _482 = _399 == (-1);
-                }
-                else
-                {
-                    _482 = true;
-                }
-                _483 = _482;
-            }
-            else
-            {
-                _483 = false;
-            }
-            bool _488;
-            int _499;
-            do
-            {
-                _488 = float(_339) >= 999.0;
-                bool _494;
-                if (!_488)
-                {
-                    _494 = float(_341) >= 999.0;
-                }
-                else
-                {
-                    _494 = true;
-                }
-                if (_494)
-                {
-                    _499 = -1;
+                    if (_462 == (-1))
+                    {
+                        _482 = -1;
+                        break;
+                    }
+                    float _468 = float(_462);
+                    _482 = int((sandPositionsIn._m0[uint(floor(_468 * 0.25))] >> (uint(int(fmod(_468, 4.0)) * 8) & 31u)) & 255u);
                     break;
+                } while(false);
+                _484 = _482 == 0;
+            }
+            else
+            {
+                _484 = false;
+            }
+            bool _503;
+            if (_484)
+            {
+                bool _492;
+                if (!(_386 == 0))
+                {
+                    _492 = _386 == (-1);
                 }
-                _499 = int(_337 + 1001.0);
-                break;
-            } while(false);
+                else
+                {
+                    _492 = true;
+                }
+                bool _497;
+                if (!_492)
+                {
+                    _497 = _419 == 0;
+                }
+                else
+                {
+                    _497 = true;
+                }
+                bool _502;
+                if (!_497)
+                {
+                    _502 = _419 == (-1);
+                }
+                else
+                {
+                    _502 = true;
+                }
+                _503 = _502;
+            }
+            else
+            {
+                _503 = false;
+            }
+            bool _508;
             int _519;
             do
             {
-                if (_499 == (-1))
+                _508 = float(_358) >= 999.0;
+                bool _514;
+                if (!_508)
+                {
+                    _514 = float(_360) >= 999.0;
+                }
+                else
+                {
+                    _514 = true;
+                }
+                if (_514)
                 {
                     _519 = -1;
                     break;
                 }
-                float _505 = float(_499);
-                _519 = int((sandPositionsIn._m0[uint(floor(_505 * 0.25))] >> (uint(int(fmod(_505, 4.0)) * 8) & 31u)) & 255u);
+                _519 = int(_356 + 1001.0);
                 break;
             } while(false);
-            bool _550;
-            if (_519 == 0)
+            int _539;
+            do
             {
-                int _528;
-                do
+                if (_519 == (-1))
                 {
-                    if (_488)
-                    {
-                        _528 = -1;
-                        break;
-                    }
-                    _528 = _63 + 1;
+                    _539 = -1;
                     break;
-                } while(false);
+                }
+                float _525 = float(_519);
+                _539 = int((sandPositionsIn._m0[uint(floor(_525 * 0.25))] >> (uint(int(fmod(_525, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            bool _570;
+            if (_539 == 0)
+            {
                 int _548;
                 do
                 {
-                    if (_528 == (-1))
+                    if (_508)
                     {
                         _548 = -1;
                         break;
                     }
-                    float _534 = float(_528);
-                    _548 = int((sandPositionsIn._m0[uint(floor(_534 * 0.25))] >> (uint(int(fmod(_534, 4.0)) * 8) & 31u)) & 255u);
+                    _548 = _76 + 1;
                     break;
                 } while(false);
-                _550 = _548 == 0;
+                int _568;
+                do
+                {
+                    if (_548 == (-1))
+                    {
+                        _568 = -1;
+                        break;
+                    }
+                    float _554 = float(_548);
+                    _568 = int((sandPositionsIn._m0[uint(floor(_554 * 0.25))] >> (uint(int(fmod(_554, 4.0)) * 8) & 31u)) & 255u);
+                    break;
+                } while(false);
+                _570 = _568 == 0;
             }
             else
             {
-                _550 = false;
+                _570 = false;
             }
-            int _559;
-            do
-            {
-                float _554 = _337 + 1000.0;
-                if (_554 >= 1000000.0)
-                {
-                    _559 = -1;
-                    break;
-                }
-                _559 = int(_554);
-                break;
-            } while(false);
             int _579;
             do
             {
-                if (_559 == (-1))
+                float _574 = _356 + 1000.0;
+                if (_574 >= 1000000.0)
                 {
                     _579 = -1;
                     break;
                 }
-                float _565 = float(_559);
-                _579 = int((sandPositionsIn._m0[uint(floor(_565 * 0.25))] >> (uint(int(fmod(_565, 4.0)) * 8) & 31u)) & 255u);
+                _579 = int(_574);
                 break;
             } while(false);
-            _50[_54] = (_579 == 0) ? 0 : (_550 ? 0 : (_483 ? 0 : 1));
+            int _599;
+            do
+            {
+                if (_579 == (-1))
+                {
+                    _599 = -1;
+                    break;
+                }
+                float _585 = float(_579);
+                _599 = int((sandPositionsIn._m0[uint(floor(_585 * 0.25))] >> (uint(int(fmod(_585, 4.0)) * 8) & 31u)) & 255u);
+                break;
+            } while(false);
+            int _601 = (_599 == 0) ? 0 : (_570 ? 0 : (_503 ? 0 : 1));
+            _63[_67] = _601;
+            outImage.write(select(float4(0.800000011920928955078125, 1.0, 0.20000000298023223876953125, 1.0), float4(0.100000001490116119384765625, 0.100000001490116119384765625, 0.100000001490116119384765625, 1.0), bool4(_601 == 0)), uint2(uint2(_361)));
             continue;
         }
     }
-    sandPositionsOut._m0[gl_GlobalInvocationID.x] = (((uint(_50[0]) & 255u) | ((uint(_50[1]) & 255u) << 8u)) | ((uint(_50[2]) & 255u) << 16u)) | ((uint(_50[3]) & 255u) << 24u);
+    sandPositionsOut._m0[gl_GlobalInvocationID.x] = (((uint(_63[0]) & 255u) | ((uint(_63[1]) & 255u) << 8u)) | ((uint(_63[2]) & 255u) << 16u)) | ((uint(_63[3]) & 255u) << 24u);
 }
 

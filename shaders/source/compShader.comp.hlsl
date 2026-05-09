@@ -1,5 +1,7 @@
-RWStructuredBuffer<uint> sandPositionsIn : register(u0, space1);
+[[vk::image_format("rgba8")]]
+RWTexture2D<float4> outImage : register(u0, space1);
 RWStructuredBuffer<uint> sandPositionsOut : register(u1, space1);
+RWStructuredBuffer<uint> sandPositionsIn : register(u2, space1);
 
 const static int numThreads = 64;
 const static float sizeX = 1000.0f;
@@ -10,6 +12,8 @@ const static int typeSizeRatio = 32.0f / 8.0f;
 const static int outOfBounds = -1;
 const static int air = 0;
 const static int sand = 1;
+const static float4 airColor = float4(0.1f, 0.1f, 0.1f, 1.0f);
+const static float4 sandColor = float4(0.8f, 1.0f, 0.2f, 1.0f);
 
 /*
 0    1    2    3       4    5    6    7
@@ -191,6 +195,11 @@ int getTopDoubleRight(int idx) {
     return getValue(getTopDoubleRightIdx(idx));
 }
 
+void addToImage(int particleType, int idx) {
+    int2 coords = idxToCoord(idx);
+    outImage[coords] = particleType == air ? airColor : sandColor;
+}
+
 //groupshared uint sharedData[totalSize];
 
 [numthreads(numThreads, 1, 1)]
@@ -203,6 +212,8 @@ void main(uint3 GlobalInvocationID : SV_DispatchThreadID)
         int filled = getCurrent(idx);
         /* filled = sand;
         bitValues[packedIdx] = filled; */
+        //int2 coords = idxToCoord(idx);
+        //outImage[coords] = float4(1.0f, 0.0f, 0.0f, 1.0f);
         if (filled == air) {
             int doubleRight = getDoubleRight(idx);
             int topDoubleRight = getTopDoubleRight(idx);
@@ -210,6 +221,7 @@ void main(uint3 GlobalInvocationID : SV_DispatchThreadID)
             filled = getTopLeft(idx) == sand && getLeft(idx) == sand ? sand : filled;
             filled = getTop(idx) == sand ? sand : filled;
             bitValues[packedIdx] = filled;
+            addToImage(filled, idx);
             continue;
         }
         if (filled == sand) {
@@ -219,6 +231,7 @@ void main(uint3 GlobalInvocationID : SV_DispatchThreadID)
             filled = getBottomRight(idx) == air && getRight(idx) == air ? air : filled;
             filled = getBottom(idx) == air ? air : filled;
             bitValues[packedIdx] = filled;
+            addToImage(filled, idx);
             continue;
         }
     }

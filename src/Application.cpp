@@ -10,12 +10,12 @@ Application::Application(const char* title)
 	else
 	{
 		//Create window
-		bool success = SDL_CreateWindowAndRenderer(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_TRANSPARENT, &m_window, &m_renderer);
-		if (!success)
+		m_window = SDL_CreateWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+		/* if (!success)
 		{
 			printf("Window and renderer could not be created! SDL Error: %s\n", SDL_GetError());
-		}
-		else
+		} */
+		/* else
 		{
 			//Get window surface
 			m_window_surface = SDL_GetWindowSurface(m_window);
@@ -23,13 +23,13 @@ Application::Application(const char* title)
 			{
 				printf("Window surface could not be created! SDL Error: %s\n", SDL_GetError());
 			}
-		}
+		} */
 	}
 }
 
 Application::~Application()
 {
-	SDL_DestroySurface(m_window_surface);
+	//SDL_DestroySurface(m_window_surface);
 	SDL_DestroyWindow(m_window);
 
 	//Quit SDL subsystems
